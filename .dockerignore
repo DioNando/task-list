@@ -1,0 +1,19 @@
+# Ignorer les fichiers et dossiers inutiles pour l'image Docker
+.git
+.gitignore
+docker-compose.yml
+Dockerfile
+node_modules
+npm-debug.log
+yarn-error.log
+vendor
+.env
+.env.*
+phpunit.xml
+phpunit.xml.dist
+*.log
+*.sqlite
+.DS_Store
+.idea
+.vscode
+tests
