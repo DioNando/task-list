@@ -27,3 +27,7 @@ Route::get('/', function () {
 // })->name('tasks.show');
 
 Route::resource('tasks', TaskController::class);
+
+Route::get('/users', function() {
+    return view('users.index');
+});

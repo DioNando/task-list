@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('created_at', 'desc')->get();
+        $tasks = Task::orderBy('created_at', 'desc')->paginate(5);
         return view('tasks.index', compact('tasks'));
     }
 
@@ -27,13 +28,9 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-        ]);
-
+        $request->validated();
         Task::create($request->all());
         return redirect()->route('tasks.index')->with('success', 'Task created successfully');
     }
@@ -57,12 +54,14 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(TaskRequest $request, Task $task)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|max:255',
+        //     'description' => 'required',
+        // ]);
+
+        $request->validated();
 
         $task->update($request->all());
 
